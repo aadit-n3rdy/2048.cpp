@@ -4,8 +4,10 @@
 #include "game.hpp"
 #include "gameboard.hpp"
 #include "global.hpp"
+#include "saveresource.hpp"
 #include "loadresource.hpp"
 #include "menu.hpp"
+#include "platform_folders.h"
 #include <array>
 #include <iostream>
 #include <limits>
@@ -127,8 +129,10 @@ void SetUpNewGame(NewGameFlag ns) {
 
 load_gameboard_status_t initialiseContinueBoardArray() {
   using namespace Loader;
-  constexpr auto gameboard_data_filename = "../data/previousGame";
-  constexpr auto game_stats_data_filename = "../data/previousGameStats";
+//  constexpr auto gameboard_data_filename = "../data/previousGame";
+//  constexpr auto game_stats_data_filename = "../data/previousGameStats";
+  const auto gameboard_data_filename = Game::Saver::getPrevGameStateFilename();
+  const auto game_stats_data_filename = Game::Saver::getPrevGameStatisticsFilename();
   auto loaded_gameboard{false};
   auto loaded_game_stats{false};
   auto tempGBoard = GameBoard{1};

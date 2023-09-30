@@ -1,4 +1,5 @@
 #include "scores.hpp"
+#include "saveresource.hpp"
 #include "color.hpp"
 #include <algorithm>
 #include <array>
@@ -45,7 +46,7 @@ load_score_status_t loadFromFileScore(std::string filename) {
 }
 
 void saveScore(Score finalscore) {
-  saveToFileScore("../data/scores.txt", finalscore);
+  saveToFileScore(Game::Saver::getGameScoresFilename(), finalscore);
 }
 
 } // namespace Scoreboard

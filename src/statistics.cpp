@@ -3,6 +3,7 @@
 #include "scores-graphics.hpp"
 #include "scores.hpp"
 #include "statistics-graphics.hpp"
+#include "saveresource.hpp"
 #include <algorithm>
 #include <array>
 #include <fstream>
@@ -58,7 +59,7 @@ ull load_game_best_score() {
   bool stats_file_loaded{};
   ull tempscore{0};
   std::tie(stats_file_loaded, stats) =
-      loadFromFileStatistics("../data/statistics.txt");
+      loadFromFileStatistics(Game::Saver::getGameStatisticsFilename());
   if (stats_file_loaded) {
     tempscore = stats.bestScore;
   }
@@ -70,7 +71,7 @@ void saveEndGameStats(Scoreboard::Score finalscore) {
   // Need some sort of stats data values only.
   // No need to care if file loaded successfully or not...
   std::tie(std::ignore, stats) =
-      loadFromFileStatistics("../data/statistics.txt");
+      loadFromFileStatistics(Game::Saver::getGameStatisticsFilename());
   stats.bestScore =
       stats.bestScore < finalscore.score ? finalscore.score : stats.bestScore;
   stats.gameCount++;
@@ -78,7 +79,7 @@ void saveEndGameStats(Scoreboard::Score finalscore) {
   stats.totalMoveCount += finalscore.moveCount;
   stats.totalDuration += finalscore.duration;
 
-  saveToFileEndGameStatistics("../data/statistics.txt", stats);
+  saveToFileEndGameStatistics(Game::Saver::getGameStatisticsFilename(), stats);
 }
 
 void CreateFinalScoreAndEndGameDataFile(std::ostream &os, std::istream &is,

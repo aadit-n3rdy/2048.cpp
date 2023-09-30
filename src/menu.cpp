@@ -8,6 +8,7 @@
 #include "scores.hpp"
 #include "statistics-graphics.hpp"
 #include "statistics.hpp"
+#include "saveresource.hpp"
 #include <algorithm>
 #include <array>
 #include <iostream>
@@ -44,7 +45,7 @@ make_scoreboard_display_data_list() {
   // bool loaded_scorelist;
   // Warning: Does not care if file exists or not!
   std::tie(std::ignore, scoreList) =
-      Scoreboard::loadFromFileScore("../data/scores.txt");
+      Scoreboard::loadFromFileScore(Game::Saver::getGameScoresFilename());
 
   auto counter{1};
   const auto convert_to_display_list_t = [&counter](const Scoreboard::Score s) {
@@ -68,7 +69,7 @@ make_total_stats_display_data() {
   Statistics::total_game_stats_t stats;
   bool stats_file_loaded{};
   std::tie(stats_file_loaded, stats) =
-      Statistics::loadFromFileStatistics("../data/statistics.txt");
+      Statistics::loadFromFileStatistics(Game::Saver::getGameStatisticsFilename());
 
   const auto tsdd = std::make_tuple(
       stats_file_loaded, std::to_string(stats.bestScore),
@@ -156,6 +157,7 @@ void endlessLoop() {
 namespace Menu {
 
 void startMenu() {
+  Game::Saver::createGameSaveFiles();
   endlessLoop();
 }
 

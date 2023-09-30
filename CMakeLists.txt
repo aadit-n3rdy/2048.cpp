@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.7...3.21)
 project(2048 LANGUAGES CXX)
 enable_testing()
 
-set(SOURCES src/2048.cpp src/gameboard.cpp src/gameboard-graphics.cpp src/game.cpp src/game-graphics.cpp src/game-input.cpp src/game-pregamemenu.cpp src/global.cpp src/loadresource.cpp src/menu.cpp src/menu-graphics.cpp src/saveresource.cpp src/scores.cpp src/scores-graphics.cpp src/statistics.cpp src/statistics-graphics.cpp src/tile.cpp src/tile-graphics.cpp)
+set(SOURCES src/sago/platform_folders.cpp src/2048.cpp src/gameboard.cpp src/gameboard-graphics.cpp src/game.cpp src/game-graphics.cpp src/game-input.cpp src/game-pregamemenu.cpp src/global.cpp src/loadresource.cpp src/menu.cpp src/menu-graphics.cpp src/saveresource.cpp src/scores.cpp src/scores-graphics.cpp src/statistics.cpp src/statistics-graphics.cpp src/tile.cpp src/tile-graphics.cpp)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL GNU)
   add_compile_options(-Wall)
@@ -20,6 +20,7 @@ endif()
 
 add_executable(2048 ${SOURCES})
 target_include_directories(2048 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/headers/)
+target_include_directories(2048 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/sago/)
 target_compile_features(2048 PRIVATE cxx_std_14)
 
 # --- test
@@ -36,5 +37,5 @@ endif()
 install(TARGETS 2048
   RUNTIME DESTINATION bin)
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data
-        DESTINATION ${CMAKE_INSTALL_PREFIX})
+# install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data
+#        DESTINATION ${CMAKE_INSTALL_PREFIX})
